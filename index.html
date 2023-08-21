@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./index.svg" type="image/x-icon">
+    <!-- preloads -->
+    <link rel="preload" href="./assets/fonts/CircularStd-Book.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="./assets/fonts/CircularStd-Bold.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="./assets/fonts/CircularStd-Black.woff" as="font" type="font/woff" crossorigin>
+    <!-- styles -->
+    <link rel="stylesheet" href="./index.css">
+    <!-- libraries -->
+    <script src="./assets/libraries/vue.min.js"></script>
+    <!-- scripts -->
+    <script src="./index.js" type="module" defer></script>
+    <!-- page title -->
+    <title>Local Notifications</title>
+</head>
+<body>
+    <div id="app">
+        <!-- notification container -->
+        <div class="container">
+            <!-- toggle button -->
+            <button
+                class="opener"
+                :data-opened="opened.popup"
+                :data-any="count > 0"
+                :data-count="count"
+                @click="togglePopup">
+            </button>
+            <!-- items tray -->
+            <div class="tray" :data-opened="opened.popup">
+                <div class="tray-inner">
+                    <!-- notification list -->
+                    <div class="item-list" :data-opened="opened.item !== null">
+                        <div class="item"
+                            :data-read="item.isRead"
+                            v-for="item in notifications"
+                            @click="openNotification(item.id)">
+                            <div class="item-title">
+                                {{ item.title }}
+                            </div>
+                            <div class="item-description">
+                                {{ item.description }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- opened notification -->
+                    <div class="item-view">
+                        <div class="view-title">
+                            {{ opened.item?.title }}
+                        </div>
+                        <div class="view-description">
+                            {{ opened.item?.description }}
+                        </div>
+                        <button class="view-close"
+                            @click="closeNotification">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- realtime switch -->
+        <label class="realtime">
+            <input type="checkbox" v-model="realtime">
+            Realtime Notifications
+        </label>
+    </div>
+</body>
+</html>

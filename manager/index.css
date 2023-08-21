@@ -1,0 +1,92 @@
+@font-face {
+    font-family: "CircularStd";
+    font-weight: 400;
+    src: url(../assets/fonts/CircularStd-Book.woff);
+}
+
+@font-face {
+    font-family: "CircularStd";
+    font-weight: 500;
+    src: url(../assets/fonts/CircularStd-Bold.woff);
+}
+
+@font-face {
+    font-family: "CircularStd";
+    font-weight: 600;
+    src: url(../assets/fonts/CircularStd-Black.woff);
+}
+
+* {
+    font-family: "CircularStd";
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    outline: none;
+}
+
+body {
+    margin: 20px;
+}
+
+table {
+    background-color: #1111;
+}
+
+table th {
+    padding: 10px;
+    background-color: #1111;
+}
+
+table td {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.delete {
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml,<svg version="1.1" viewBox="0 0 16 16" width="200" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: rgb(255, 0, 0); opacity: 1; transform: rotate(0deg) scale(1, 1);"><g><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path></g></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+input {
+    display: block;
+    width: 500px;
+    max-width: 90vw;
+    padding: 0px 10px;
+    height: 35px;
+    background-color: #1111;
+    border: none;
+    margin-bottom: 10px;
+}
+
+textarea {
+    display: block;
+    width: 500px;
+    max-width: 90vw;
+    padding: 10px;
+    height: 150px;
+    background-color: #1111;
+    border: none;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.create {
+    display: block;
+    height: 35px;
+    padding: 0px 15px;
+    margin-bottom: 30px;
+}
+
+.reset {
+    display: block;
+    height: 35px;
+    padding: 0px 15px;
+    margin-top: 20px;
+}
