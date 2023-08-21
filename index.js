@@ -26,7 +26,7 @@ new Vue({
         // open states
         opened: {
             // popup state
-            popup: true,
+            popup: false,
             // current item state
             item: null
         },
