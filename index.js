@@ -1,4 +1,4 @@
-import Notifications from "./assets/modules/Notifications"
+import Notifications from "./assets/modules/Notifications.js"
 
 // ============================ mockups handling ============================
 
