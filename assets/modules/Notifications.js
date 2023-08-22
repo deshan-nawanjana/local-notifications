@@ -1,3 +1,10 @@
+/* ===============================
+    Notifications.js Module
+    Developed by Deshan Nawanjana
+    https://github.com/deshan-nawanjana
+    http://dnjs.info/
+   =============================== */
+
 // local store key space
 const name = 'local-web-notifications'
 
