@@ -107,6 +107,6 @@ new Vue({
                 // load notifications
                 this.loadNotifications()
             }
-        }, 5000)
+        }, 15000)
     }
 })
