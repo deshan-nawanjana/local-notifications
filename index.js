@@ -69,7 +69,7 @@ new Vue({
             // request notification items
             const items = await fetchNotifications()
             // register notifications locally
-            Notifications.register(items).then(data => {
+            Notifications.register(items, true).then(data => {
                 // set notification items
                 this.notifications = data.items
                 // set unread count

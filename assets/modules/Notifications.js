@@ -30,7 +30,7 @@ const resolveOutput = (resolve, id = null) => {
         return item
     })
     // get unread count
-    const count = Object.values(data.states).filter(item => !item).length
+    const count = data.items.filter(item => !data.states[item.id]).length
     // check current id
     if (id !== null) {
         // get notification by id
@@ -50,7 +50,7 @@ const resolveOutput = (resolve, id = null) => {
 const Notifications = {}
 
 // method to register notifications
-Notifications.register = (items = []) => {
+Notifications.register = (items = [], dump = false) => {
     // return promise
     return new Promise(resolve => {
         // get previous states from local
@@ -65,16 +65,19 @@ Notifications.register = (items = []) => {
                 data.states[item.id] = false
             }
         }
-        // get state registry ids
-        const ids = Object.keys(data.states)
-        // for each id
-        for (let i = 0; i < ids.length; i++) {
-            // current id
-            const id = ids[i].toString()
-            // check on notification items
-            if (items.some(item => item.id.toString() === id) === false) {
-                // delete unavailable states
-                delete data.states[id]
+        // check dump flag
+        if (dump) {
+            // get state registry ids
+            const ids = Object.keys(data.states)
+            // for each id
+            for (let i = 0; i < ids.length; i++) {
+                // current id
+                const id = ids[i].toString()
+                // check on notification items
+                if (items.some(item => item.id.toString() === id) === false) {
+                    // delete unavailable states
+                    delete data.states[id]
+                }
             }
         }
         // set items on data
