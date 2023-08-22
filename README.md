@@ -40,7 +40,7 @@ Notifications.register(items).then(data => {
 })
 ```
 
-See the following resolved `data.items` output that each item contains `isRead` status.
+See the following resolved `data.items` output that each item contains `isRead` status. And `data.count` is the total number of unread notifications.
 
 ```JSON
 [
@@ -72,10 +72,11 @@ Notifications.register(items, true).then(data => {
 
 ### 2. Read Notifications
 
-While reading a notification, read status should be changed in the notification registry. Use `markAsRead` method to apply the changes and use the updated status in your application. Provide `id` of the notificaiton item as parameter to update the status.
+While reading a notification, read status should be changed in the notification registry. Use `markAsRead` method to apply the changes and use the updated status in your application. Provide `id` of the notificaiton item as parameter to update the status. In the resolved data, `data.current` will be the opened notification item.
 
 ```js
 Notifications.markAsRead(id).then(data => {
+    // use data.current
     // use data.items
     // use data.count
 })
@@ -87,6 +88,7 @@ Same as `markAsRead` method, use `markAsUnread` method to unread a notification 
 
 ```js
 Notifications.markAsUnread(id).then(data => {
+    // use data.current
     // use data.items
     // use data.count
 })
