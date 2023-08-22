@@ -7,7 +7,7 @@ Import [Notifications.js](./assets/modules/Notifications.js) module into your sc
 import Notifications from "./path/to/Notifications.js"
 ```
 
-See [this Vue.js example](./index.js) to see the basic usage.
+See [this Vue.js example](./index.js) and [the live demo](https://tinyurl.com/DNJSNotify) to see the basic usage.
 
 ### 1. Input Structure
 
