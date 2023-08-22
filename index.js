@@ -1,19 +1,35 @@
 import Notifications from "./assets/modules/Notifications.js"
 
-// ============================ mockups handling ============================
+// ============================ response handling ============================
 
-// method to imitate api request
-const fetchNotifications = async () => {
-    // check edited notifications
-    if ('notifications-api' in localStorage) {
-        // return notifications from local
-        return JSON.parse(localStorage.getItem('notifications-api'))
-    } else {
-        // request notifications
-        const resp = await fetch('index.json')
-        // return parsed data
-        return await resp.json()
-    }
+// method to request notifications
+const fetchNotifications = () => {
+    // return promise
+    return new Promise(resolve => {
+        // set callback function
+        window.callback = data => {
+            // get response content
+            const content = data?.entry?.content?.$t
+            // resolve parsed data
+            resolve(JSON.parse(content))
+        }
+        // get url id parameters
+        const param = new URLSearchParams(location.search).get('id')
+        // get blog id
+        const blog = param.split('.')[0]
+        // get post id
+        const post = param.split('.')[1]
+        // create endpoint
+        const endpoint = `https://www.blogger.com/feeds/${blog}/posts/default/${post}`
+        // create query
+        const query = '?alt=json-in-script&callback=callback'
+        // create script element
+        const element = document.createElement('script')
+        // set source path
+        element.setAttribute('src', endpoint + query)
+        // append element to head
+        document.head.appendChild(element)
+    })
 }
 
 // ============================ notifications component ============================
@@ -91,6 +107,6 @@ new Vue({
                 // load notifications
                 this.loadNotifications()
             }
-        }, 3000)
+        }, 5000)
     }
 })
