@@ -13,10 +13,29 @@ const data = { states: null, items: [] }
 
 // method to set on local storage
 const readLocal = () => {
+    // output object
+    const output = {}
     // get data from storage
     const text = localStorage.getItem(name) || '{}'
-    // return parsed object
-    return JSON.parse(text)
+    // parse storage data
+    const data = JSON.parse(text)
+    // get notification ids
+    const ids = Object.keys(data)
+    // for each key
+    for (let i = 0; i < ids.length; i++) {
+        // current id
+        const id = ids[i]
+        // check item validation
+        if (typeof data[id] === 'object' && data[id] !== null) {
+            // include in output
+            output[id] = data[id]
+        } else {
+            // include as valid item
+            output[id] = { isRead: false, updateTime: null }
+        }
+    }
+    // return output
+    return output
 }
 
 // method to set on local storage
@@ -31,13 +50,15 @@ const saveLocal = () => {
 const resolveOutput = (resolve, id = null) => {
     // map notification items
     data.items = data.items.map(item => {
+        // get item id
+        const id = item.id.toString()
         // set is read flag
-        item.isRead = data.states[item.id.toString()]
+        item.isRead = data.states[id].isRead && item.updated_at === data.states[id].updateTime
         // return same item
         return item
     })
     // get unread count
-    const count = data.items.filter(item => !data.states[item.id]).length
+    const count = data.items.filter(item => !data.states[item.id].isRead).length
     // check current id
     if (id !== null) {
         // get notification by id
@@ -69,7 +90,10 @@ Notifications.register = (items = [], dump = false) => {
             // check none registered ids
             if (item.id in data.states === false) {
                 // register new unread notification
-                data.states[item.id] = false
+                data.states[item.id] = { isRead: false, updateTime: null }
+            } else if (data.states[item.id].updateTime !== item.updated_at) {
+                // register updated notification
+                data.states[item.id] = { isRead: false, updateTime: data.states[item.id].updateTime }
             }
         }
         // check dump flag
@@ -99,8 +123,12 @@ Notifications.register = (items = [], dump = false) => {
 Notifications.markAsRead = id => {
     // return promise
     return new Promise(resolve => {
+        // get notification item by id
+        const item = data.items.find(item => item.id.toString() === id.toString())
         // update notification state
-        data.states[id.toString()] = true
+        data.states[id.toString()].isRead = true
+        // update notification time
+        data.states[id.toString()].updateTime = item.updated_at
         // save into local
         saveLocal()
         // resolve output
@@ -112,7 +140,9 @@ Notifications.markAsUnread = id => {
     // return promise
     return new Promise(resolve => {
         // update notification state
-        data.states[id.toString()] = false
+        data.states[id.toString()].isRead = false
+        // update notification time
+        data.states[id.toString()].updateTime = null
         // save into local
         saveLocal()
         // resolve output
